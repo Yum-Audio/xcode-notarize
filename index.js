@@ -114,7 +114,7 @@ const submit = async ({productPath, archivePath, primaryBundleId, username, pass
         "--primary-bundle-id", primaryBundleId,
         "-u", username,
         "-p", password,
-        "--asc-provider", ascProvider
+        "--asc-public-id", ascProvider
     ];
 
     if (verbose === true) {
