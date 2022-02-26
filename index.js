@@ -37,6 +37,7 @@ const parseConfiguration = () => {
         username: core.getInput("appstore-connect-username", {required: true}),
         password: core.getInput("appstore-connect-password", {required: true}),
         primaryBundleId: core.getInput("primary-bundle-id"),
+        ascProvider: core.getInput("asc-provider"),
         verbose: core.getInput("verbose") === "true",
     };
 
@@ -70,7 +71,7 @@ const archive = async ({productPath}) => {
 };
 
 
-const submit = async ({productPath, archivePath, primaryBundleId, username, password, verbose}) => {
+const submit = async ({productPath, archivePath, primaryBundleId, username, password, ascProvider, verbose}) => {
     //
     // Make sure the product exists.
     //
@@ -115,12 +116,18 @@ const submit = async ({productPath, archivePath, primaryBundleId, username, pass
         "-p", password
     ];
 
+    if (ascProvider !== null && ascProvider !== "") {
+        args.push("--asc-provider")
+        args.push(ascProvider);
+    }
+    
     if (verbose === true) {
         args.push("--verbose");
     }
 
     let xcrun = execa("xcrun", args, {reject: false});
 
+    
     if (verbose == true) {
         xcrun.stdout.pipe(process.stdout);
         xcrun.stderr.pipe(process.stderr);
