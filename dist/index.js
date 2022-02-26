@@ -120,13 +120,10 @@ const submit = async ({productPath, archivePath, primaryBundleId, username, pass
         "-f", archivePath,
         "--primary-bundle-id", primaryBundleId,
         "-u", username,
-        "-p", password
+        "-p", password,
+        "--asc-provider", ascProvider
     ];
 
-    if (ascProvider !== null && ascProvider !== "") {
-      args.push("--asc-provider")
-      args.push(ascProvider);
-    }
 
     if (verbose === true) {
         args.push("--verbose");
